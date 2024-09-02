@@ -4,10 +4,11 @@ import { User } from '../models/User.js';
 import { createError } from '../middlewares/errorHandler.js';
 import HttpStatus from '../utils/httpStatus.js';
 import cookieOptions from '../utils/cookieOptions.js';
+import cookie from 'cookie';
 
 const handleAuth = (user, res, statusCode, message) => {
   const token = jwt.sign({ user: { id: user.id } }, process.env.JWT_SECRET, {
-    expiresIn: '1h',
+    expiresIn: '7d',
   });
   res
     .status(statusCode)
@@ -48,6 +49,25 @@ const login = async (req, res, next) => {
   }
 };
 
+const getUserIdFromToken = (req, res) => {
+  try {
+    const cookies = cookie.parse(req.headers.cookie || '');
+    const token = cookies['token'];
+    if (!token) {
+      return res
+        .status(401)
+        .json({ message: 'Authentication token is missing' });
+    }
+
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decodedToken.user;
+
+    res.status(200).json({ userId: userId.id });
+  } catch (error) {
+    res.status(401).json({ message: 'Invalid or expired token' });
+  }
+};
+
 const logout = (req, res) => {
   res
     .status(HttpStatus.OK)
@@ -55,4 +75,4 @@ const logout = (req, res) => {
     .json({ message: 'Logged out successfully' });
 };
 
-export { register, login, logout };
+export { register, login, logout, getUserIdFromToken };

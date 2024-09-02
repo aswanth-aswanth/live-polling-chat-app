@@ -1,5 +1,10 @@
 import { Router } from 'express';
-import { register, login, logout } from '../controllers/authController.js';
+import {
+  register,
+  login,
+  logout,
+  getUserIdFromToken,
+} from '../controllers/authController.js';
 import {
   validateRegistration,
   validateLogin,
@@ -8,6 +13,7 @@ import {
 const router = Router();
 
 router.post('/register', validateRegistration, register);
+router.get('/user-id', getUserIdFromToken);
 router.post('/login', validateLogin, login);
 router.post('/logout', logout);
 

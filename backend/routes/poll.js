@@ -4,11 +4,13 @@ import {
   getPollById,
   createPoll,
 } from '../controllers/pollController.js';
+import authenticateToken from '../middlewares/auth.js';
+import { nonAuthUser } from '../middlewares/auth.js';
 
 const router = Router();
 
-router.get('/', getAllPolls);
-router.get('/:id', getPollById);
-router.post('/', createPoll);
+router.get('/', nonAuthUser, getAllPolls);
+router.get('/:id', nonAuthUser, getPollById);
+router.post('/', authenticateToken, createPoll);
 
 export default router;

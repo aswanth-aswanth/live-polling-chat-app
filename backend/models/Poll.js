@@ -5,10 +5,7 @@ const optionSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  votes: {
-    type: Number,
-    default: 0,
-  },
+  votedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 });
 
 const pollSchema = new mongoose.Schema(
@@ -31,10 +28,6 @@ const pollSchema = new mongoose.Schema(
     isActive: {
       type: Boolean,
       default: true,
-    },
-    totalVotes: {
-      type: Number,
-      default: 0,
     },
   },
   { timestamps: true }

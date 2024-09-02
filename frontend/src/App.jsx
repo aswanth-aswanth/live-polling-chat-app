@@ -3,10 +3,12 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import CreatePoll from './pages/CreatePoll';
+import URLWatcher from './utils/urlWatcher';
 
 function App() {
   return (
     <Router>
+      <URLWatcher />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
