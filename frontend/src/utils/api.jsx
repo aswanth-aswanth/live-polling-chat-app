@@ -37,14 +37,18 @@ const getUserIdFromToken = async () => {
   return response.data;
 };
 
-const createPoll = async (title, description, options, endDate, isActive) => {
+const createPoll = async (title, description, options, endDate) => {
   const response = await apiClient.post('/polls', {
     title,
     description,
     options,
     endDate,
-    isActive,
   });
+  return response.data;
+};
+
+const getMessages = async (pollId) => {
+  const response = await apiClient.get(`/chat/${pollId}`);
   return response.data;
 };
 
@@ -56,4 +60,5 @@ export {
   loginUser,
   createPoll,
   getUserIdFromToken,
+  getMessages,
 };

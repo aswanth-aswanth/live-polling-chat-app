@@ -73,14 +73,13 @@ const getPollById = async (req, res, next) => {
 
 const createPoll = async (req, res, next) => {
   try {
-    const { title, description, options, endDate, isActive } = req.body;
+    const { title, description, options, endDate } = req.body;
     const creator = req.user?.id;
     const newPoll = new Poll({
       title,
       description,
       options,
       endDate,
-      isActive,
       creator,
     });
 

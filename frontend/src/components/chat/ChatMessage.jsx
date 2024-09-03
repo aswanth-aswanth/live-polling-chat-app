@@ -1,16 +1,29 @@
+import { Trash2 } from 'lucide-react';
 
-const ChatMessage = ({ message, isCurrentUser }) => {
+const ChatMessage = ({ message, userId, onDelete }) => {
+  const isOwnMessage = message?.sender?._id === userId;
+
   return (
-    <div className={`mb-4 ${isCurrentUser ? 'text-right' : 'text-left'}`}>
+    <div
+      className={`mb-2 flex ${isOwnMessage ? 'justify-end' : 'justify-start'}`}
+    >
       <div
-        className={`inline-block max-w-xs md:max-w-md ${
-          isCurrentUser ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'
-        } rounded-lg px-4 py-2`}
+        className={`inline-block px-4 py-2 rounded-lg ${
+          isOwnMessage ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
+        }`}
       >
-        <p className={`text-xs mb-1 ${isCurrentUser ? 'text-blue-200' : 'text-gray-600'}`}>
-          {message.sender}
-        </p>
-        <p>{message.text}</p>
+        <div className="flex items-center">
+          <span className="font-bold pr-2">{message.sender?.username}:</span>
+          <span>{message.content}</span>
+          {isOwnMessage && (
+            <button
+              className="ml-2 text-gray-500 hover:text-gray-700"
+              onClick={() => onDelete(message._id)}
+            >
+              <Trash2 size={16} />
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -7,9 +7,13 @@ import cookieOptions from '../utils/cookieOptions.js';
 import cookie from 'cookie';
 
 const handleAuth = (user, res, statusCode, message) => {
-  const token = jwt.sign({ user: { id: user.id } }, process.env.JWT_SECRET, {
-    expiresIn: '7d',
-  });
+  const token = jwt.sign(
+    { user: { id: user.id, username: user.username } },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: '7d',
+    }
+  );
   res
     .status(statusCode)
     .cookie('token', token, cookieOptions)

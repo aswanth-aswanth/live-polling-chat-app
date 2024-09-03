@@ -7,7 +7,6 @@ const CreatePoll = () => {
   const [description, setDescription] = useState('');
   const [options, setOptions] = useState([{ text: '' }]);
   const [endDate, setEndDate] = useState('');
-  const [isActive, setIsActive] = useState(true);
   const navigate = useNavigate();
 
   const handleOptionChange = (index, event) => {
@@ -29,7 +28,7 @@ const CreatePoll = () => {
     event.preventDefault();
 
     try {
-      await createPoll(title, description, options, endDate, isActive);
+      await createPoll(title, description, options, endDate);
 
       alert('Poll created successfully!');
 
@@ -37,7 +36,6 @@ const CreatePoll = () => {
       setDescription('');
       setOptions([{ text: '' }]);
       setEndDate('');
-      setIsActive(true);
       navigate('/');
     } catch (error) {
       console.error('Error creating poll:', error);
@@ -118,18 +116,6 @@ const CreatePoll = () => {
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               required
             />
-          </div>
-
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              checked={isActive}
-              onChange={(e) => setIsActive(e.target.checked)}
-              className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-            />
-            <label className="ml-2 block text-sm font-medium text-gray-700">
-              Active
-            </label>
           </div>
 
           <div>
