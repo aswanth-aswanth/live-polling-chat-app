@@ -1,3 +1,6 @@
+import { configDotenv } from 'dotenv';
+configDotenv();
+
 const cookieOptions = {
   httpOnly: true,
   secure: process.env.NODE_ENV === 'production',
