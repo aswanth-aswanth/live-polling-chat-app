@@ -1,3 +1,5 @@
+import { configDotenv } from 'dotenv';
+configDotenv();
 import express from 'express';
 import authRoutes from './routes/auth.js';
 import pollRoutes from './routes/poll.js';
@@ -15,7 +17,7 @@ app.use(logger('dev'));
 
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: `${process.env.FRONTEND_URL}`,
     credentials: true,
   })
 );

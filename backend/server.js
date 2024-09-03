@@ -1,9 +1,9 @@
 import { configDotenv } from 'dotenv';
+configDotenv();
+
 import app from './app.js';
 import { createServer } from 'http';
 import { setupSocket } from './config/socket.js';
-
-configDotenv();
 
 const port = process.env.PORT || 4000;
 const server = createServer(app);

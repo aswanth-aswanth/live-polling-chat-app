@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 const SocketContext = createContext();
 
 const createSocket = () =>
-  io('http://localhost:4000', { withCredentials: true });
+  io(`${import.meta.env.VITE_API_BASE_URL}`, { withCredentials: true });
 
 const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);

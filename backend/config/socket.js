@@ -1,3 +1,5 @@
+import { configDotenv } from 'dotenv';
+configDotenv();
 import { Server } from 'socket.io';
 import { authenticateSocket } from '../middlewares/auth.js';
 import { getPollById, updateVote } from '../services/pollService.js';
@@ -6,7 +8,7 @@ import { createChatMessage, deleteMessage } from '../services/chatService.js';
 export const setupSocket = (server) => {
   const io = new Server(server, {
     cors: {
-      origin: 'http://localhost:5173',
+      origin: `${process.env.FRONTEND_URL}`,
       credentials: true,
     },
   });
