@@ -5,7 +5,6 @@ const cookieOptions = {
   httpOnly: true,
   secure: process.env.NODE_ENV === 'production',
   sameSite: 'lax',
-  domain: 'polling.aswanth.online',
   maxAge: 3600000,
 };
 
